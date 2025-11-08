@@ -1,0 +1,165 @@
+{
+    "info":  {
+                 "name":  "MoodTune Music API",
+                 "schema":  "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+             },
+    "item":  [
+                 {
+                     "name":  "Health /health",
+                     "request":  {
+                                     "method":  "GET",
+                                     "url":  {
+                                                 "raw":  "{{baseUrl}}/health",
+                                                 "host":  [
+                                                              "{{baseUrl}}"
+                                                          ],
+                                                 "path":  [
+                                                              "health"
+                                                          ]
+                                             }
+                                 }
+                 },
+                 {
+                     "name":  "Resolve /catalog/resolve",
+                     "request":  {
+                                     "method":  "POST",
+                                     "header":  [
+                                                    {
+                                                        "key":  "Content-Type",
+                                                        "value":  "application/json"
+                                                    }
+                                                ],
+                                     "body":  {
+                                                  "mode":  "raw",
+                                                  "raw":  "{\n  \"title\": \"Fix You\",\n  \"artist\": \"Coldplay\",\n  \"limit\": 1\n}"
+                                              },
+                                     "url":  {
+                                                 "raw":  "{{baseUrl}}/catalog/resolve",
+                                                 "host":  [
+                                                              "{{baseUrl}}"
+                                                          ],
+                                                 "path":  [
+                                                              "catalog",
+                                                              "resolve"
+                                                          ]
+                                             }
+                                 }
+                 },
+                 {
+                     "name":  "Resolve Batch /catalog/resolve-batch",
+                     "request":  {
+                                     "method":  "POST",
+                                     "header":  [
+                                                    {
+                                                        "key":  "Content-Type",
+                                                        "value":  "application/json"
+                                                    }
+                                                ],
+                                     "body":  {
+                                                  "mode":  "raw",
+                                                  "raw":  "{\n  \"items\": [\n    {\n      \"title\": \"Fix You\",\n      \"artist\": \"Coldplay\"\n    },\n    {\n      \"title\": \"Yellow\",\n      \"artist\": \"Coldplay\"\n    }\n  ],\n  \"per_item_limit\": 1\n}"
+                                              },
+                                     "url":  {
+                                                 "raw":  "{{baseUrl}}/catalog/resolve-batch",
+                                                 "host":  [
+                                                              "{{baseUrl}}"
+                                                          ],
+                                                 "path":  [
+                                                              "catalog",
+                                                              "resolve-batch"
+                                                          ]
+                                             }
+                                 }
+                 },
+                 {
+                     "name":  "List Emotions /catalog/emotions",
+                     "request":  {
+                                     "method":  "GET",
+                                     "url":  {
+                                                 "raw":  "{{baseUrl}}/catalog/emotions",
+                                                 "host":  [
+                                                              "{{baseUrl}}"
+                                                          ],
+                                                 "path":  [
+                                                              "catalog",
+                                                              "emotions"
+                                                          ]
+                                             }
+                                 }
+                 },
+                 {
+                     "name":  "Emotion Params /catalog/emotions/{emotion}",
+                     "request":  {
+                                     "method":  "GET",
+                                     "url":  {
+                                                 "raw":  "{{baseUrl}}/catalog/emotions/{{emotion}}",
+                                                 "host":  [
+                                                              "{{baseUrl}}"
+                                                          ],
+                                                 "path":  [
+                                                              "catalog",
+                                                              "emotions",
+                                                              "{{emotion}}"
+                                                          ]
+                                             }
+                                 }
+                 },
+                 {
+                     "name":  "Create Playlist /playlists",
+                     "request":  {
+                                     "method":  "POST",
+                                     "header":  [
+                                                    {
+                                                        "key":  "Content-Type",
+                                                        "value":  "application/json"
+                                                    }
+                                                ],
+                                     "body":  {
+                                                  "mode":  "raw",
+                                                  "raw":  "{\n  \"provider\": \"spotify\",\n  \"provider_access_token\": \"{token}\",\n  \"title\": \"Mi Playlist\",\n  \"description\": \"Generada por MoodTune\",\n  \"uris\":[\"spotify:track:...\"]\n}"
+                                              },
+                                     "url":  {
+                                                 "raw":  "{{baseUrl}}/playlists",
+                                                 "host":  [
+                                                              "{{baseUrl}}"
+                                                          ],
+                                                 "path":  [
+                                                              "playlists"
+                                                          ]
+                                             }
+                                 }
+                 },
+                 {
+                     "name":  "Audio Features /catalog/audio-features",
+                     "request":  {
+                                     "method":  "POST",
+                                     "header":  [
+                                                    {
+                                                        "key":  "Content-Type",
+                                                        "value":  "application/json"
+                                                    }
+                                                ],
+                                     "body":  {
+                                                  "mode":  "raw",
+                                                  "raw":  "{\n  \"ids\": [\"6rqhFgbbKwnb9MLmUQDhG6\"]\n}"
+                                              },
+                                     "url":  {
+                                                 "raw":  "{{baseUrl}}/catalog/audio-features",
+                                                 "host":  [
+                                                              "{{baseUrl}}"
+                                                          ],
+                                                 "path":  [
+                                                              "catalog",
+                                                              "audio-features"
+                                                          ]
+                                             }
+                                 }
+                 }
+             ],
+    "variable":  [
+                     {
+                         "key":  "baseUrl",
+                         "value":  "http://localhost:8020"
+                     }
+                 ]
+}

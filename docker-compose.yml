@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  api:
+    build: .
+    env_file:
+      - .env
+    environment:
+      - DEBUG=true
+      - CORS_ORIGINS=*
+      - DEFAULT_PROVIDER=spotify
+    ports:
+      - "8020:8020"
+

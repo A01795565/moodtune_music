@@ -1,0 +1,251 @@
+openapi: 3.0.3
+info:
+  title: MoodTune Music API
+  version: "1.0.0"
+  description: |
+    API para encapsular integración con proveedores musicales (Spotify).
+    Expone:
+    - Creación de playlists (requiere token de usuario)
+    - Recomendaciones por emoción (Client Credentials)
+    - Audio-features de tracks
+  termsOfService: https://moodtune.com/terms
+  contact:
+    name: Equipo 26 — MoodTune
+    url: https://moodtune.com/moodtune
+    email: equipo26@moodtune.com
+
+servers:
+  - url: http://localhost:8020
+    description: Entorno local de desarrollo
+
+tags:
+  - name: Health
+  - name: Playlists
+  - name: Catalog
+
+paths:
+  /health:
+    get:
+      tags: [Health]
+      summary: Healthcheck
+      operationId: musicHealth
+      security: []
+      responses:
+        "200": { description: OK, content: { application/json: { schema: { $ref: "#/components/schemas/HealthResponse" } } } }
+
+  /playlists:
+    post:
+      tags: [Playlists]
+      summary: Crear playlist en Spotify y agregar tracks
+      operationId: createPlaylist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePlaylistRequest"
+      responses:
+        "201": { description: Creada, content: { application/json: { schema: { $ref: "#/components/schemas/CreatePlaylistResponse" } } } }
+        "400": { description: Error de validación, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+        "502": { description: Error proveedor, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }\n  # Endpoint /catalog/recommendations eliminado (servicio de Spotify deprecado)\n\n  /catalog/resolve:
+    post:
+      tags: [Catalog]
+      summary: Resolver título+artista a pista normalizada (proveedor controlado por .env)
+      operationId: catalogResolve
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title: { type: string, example: "Fix You" }
+                artist: { type: string, example: "Coldplay" }
+                limit: { type: integer, example: 1 }
+              required: [title, artist]
+      responses:
+        "200": { description: OK, content: { application/json: { schema: { $ref: "#/components/schemas/ResolveResponse" } } } }
+        "400": { description: Error, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+
+  /catalog/resolve-batch:
+    post:
+      tags: [Catalog]
+      summary: Resolver en lote varios título+artista (proveedor controlado por .env)
+      operationId: catalogResolveBatch
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      title: { type: string }
+                      artist: { type: string }
+                per_item_limit: { type: integer, default: 1 }
+              required: [items]
+      responses:
+        "200": { description: OK, content: { application/json: { schema: { $ref: "#/components/schemas/ResolveBatchResponse" } } } }
+        "400": { description: Error, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+
+  /catalog/audio-features:
+    post:
+      tags: [Catalog]
+      summary: Audio-features para lista de IDs
+      operationId: catalogAudioFeatures
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ids:
+                  type: array
+                  items: { type: string }
+      responses:
+        "200": { description: OK, content: { application/json: { schema: { $ref: "#/components/schemas/AudioFeaturesResponse" } } } }
+        "400": { description: Error, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      properties:
+        status: { type: string, example: ok }
+        service: { type: string, example: moodtune_music }
+        debug: { type: boolean }
+
+    Error:
+      type: object
+      properties:
+        error: { type: string }
+        detail: { type: string }
+
+    CreatePlaylistRequest:
+      type: object
+      properties:
+        provider: { type: string, example: spotify }
+        provider_access_token: { type: string }
+        title: { type: string }
+        description: { type: string }
+        uris:
+          type: array
+          items: { type: string }
+      required: [provider_access_token, title, uris]
+
+    CreatePlaylistResponse:
+      type: object
+      properties:
+        provider: { type: string }
+        external_playlist_id: { type: string }
+        deep_link_url: { type: string }
+        title: { type: string }
+        description: { type: string }
+        tracks_added: { type: integer }\n    # Schema RecommendationsResponse eliminado\n\n    AudioFeaturesResponse:
+      type: object
+      properties:
+        items:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              valence: { type: number, format: float }
+              energy: { type: number, format: float }
+  /catalog/emotions:
+    get:
+      tags: [Catalog]
+      summary: Listado de emociones y parámetros
+      operationId: catalogListEmotions
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        valence:
+                          type: array
+                          items: { type: number }
+                        energy:
+                          type: array
+                          items: { type: number }
+
+  /catalog/emotions/{emotion}:
+    get:
+      tags: [Catalog]
+      summary: Parámetros para una emoción específica
+      operationId: catalogEmotionParams
+      parameters:
+        - in: path
+          name: emotion
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  emotion: { type: string }
+                  params:
+                    type: object
+                    properties:
+                      valence:
+                        type: array
+                        items: { type: number }
+                      energy:
+                        type: array
+                        items: { type: number }
+        "404": { description: No encontrado, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+
+    ResolveItem:
+      type: object
+      properties:
+        id: { type: string, nullable: true }
+        external_id: { type: string, nullable: true }
+        provider: { type: string, enum: [itunes, spotify] }
+        source: { type: string, example: spotify_search }
+        title: { type: string }
+        artist: { type: string }
+        uri: { type: string, nullable: true }
+        preview_url: { type: string, nullable: true }
+        image_url: { type: string, nullable: true }
+        thumbnail_url: { type: string, nullable: true }
+
+    ResolveResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items: { $ref: "#/components/schemas/ResolveItem" }
+        returned: { type: integer }
+
+    ResolveBatchResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              index: { type: integer }
+              title: { type: string }
+              artist: { type: string }
+              items:
+                type: array
+                items: { $ref: "#/components/schemas/ResolveItem" }
+        returned: { type: integer }
+
