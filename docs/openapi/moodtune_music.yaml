@@ -3,14 +3,15 @@ info:
   title: MoodTune Music API
   version: "1.0.0"
   description: |
-    API para encapsular integración con proveedores musicales (Spotify).
+    API para encapsular integración con proveedores musicales (Spotify/iTunes).
     Expone:
     - Creación de playlists (requiere token de usuario)
-    - Recomendaciones por emoción (Client Credentials)
-    - Audio-features de tracks
+    - Búsquedas por título+artista (Client Credentials / iTunes Search)
+    - Parámetros por emoción
+    - Resolución normalizada de canciones y audio-features
   termsOfService: https://moodtune.com/terms
   contact:
-    name: Equipo 26 — MoodTune
+    name: Equipo 26 – MoodTune
     url: https://moodtune.com/moodtune
     email: equipo26@moodtune.com
 
@@ -47,7 +48,64 @@ paths:
       responses:
         "201": { description: Creada, content: { application/json: { schema: { $ref: "#/components/schemas/CreatePlaylistResponse" } } } }
         "400": { description: Error de validación, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
-        "502": { description: Error proveedor, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }\n  # Endpoint /catalog/recommendations eliminado (servicio de Spotify deprecado)\n\n  /catalog/resolve:
+        "502": { description: Error proveedor, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+
+  /catalog/emotions:
+    get:
+      tags: [Catalog]
+      summary: Listado de emociones y parámetros
+      operationId: catalogListEmotions
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        valence:
+                          type: array
+                          items: { type: number }
+                        energy:
+                          type: array
+                          items: { type: number }
+
+  /catalog/emotions/{emotion}:
+    get:
+      tags: [Catalog]
+      summary: Parámetros para una emoción específica
+      operationId: catalogEmotionParams
+      parameters:
+        - in: path
+          name: emotion
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  emotion: { type: string }
+                  params:
+                    type: object
+                    properties:
+                      valence:
+                        type: array
+                        items: { type: number }
+                      energy:
+                        type: array
+                        items: { type: number }
+        "404": { description: No encontrado, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+
+  /catalog/resolve:
     post:
       tags: [Catalog]
       summary: Resolver título+artista a pista normalizada (proveedor controlado por .env)
@@ -111,6 +169,66 @@ paths:
         "200": { description: OK, content: { application/json: { schema: { $ref: "#/components/schemas/AudioFeaturesResponse" } } } }
         "400": { description: Error, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
 
+  /catalog/search-spotify:
+    post:
+      tags: [Catalog]
+      summary: Búsqueda simple de canciones en Spotify (Client Credentials)
+      operationId: catalogSearchSpotify
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title: { type: string, example: "Fix You" }
+                artist: { type: string, example: "Coldplay" }
+                limit: { type: integer, example: 1 }
+              required: [title, artist]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items: { type: object }
+                  returned: { type: integer }
+        "400": { description: Error, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+
+  /catalog/search-itunes:
+    post:
+      tags: [Catalog]
+      summary: Búsqueda simple de canciones en iTunes Search API
+      operationId: catalogSearchItunes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title: { type: string, example: "Fix You" }
+                artist: { type: string, example: "Coldplay" }
+                limit: { type: integer, example: 1 }
+              required: [title, artist]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items: { type: object }
+                  returned: { type: integer }
+        "400": { description: Error, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+
 components:
   schemas:
     HealthResponse:
@@ -146,7 +264,9 @@ components:
         deep_link_url: { type: string }
         title: { type: string }
         description: { type: string }
-        tracks_added: { type: integer }\n    # Schema RecommendationsResponse eliminado\n\n    AudioFeaturesResponse:
+        tracks_added: { type: integer }
+
+    AudioFeaturesResponse:
       type: object
       properties:
         items:
@@ -156,60 +276,6 @@ components:
             properties:
               valence: { type: number, format: float }
               energy: { type: number, format: float }
-  /catalog/emotions:
-    get:
-      tags: [Catalog]
-      summary: Listado de emociones y parámetros
-      operationId: catalogListEmotions
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  items:
-                    type: object
-                    additionalProperties:
-                      type: object
-                      properties:
-                        valence:
-                          type: array
-                          items: { type: number }
-                        energy:
-                          type: array
-                          items: { type: number }
-
-  /catalog/emotions/{emotion}:
-    get:
-      tags: [Catalog]
-      summary: Parámetros para una emoción específica
-      operationId: catalogEmotionParams
-      parameters:
-        - in: path
-          name: emotion
-          required: true
-          schema: { type: string }
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  emotion: { type: string }
-                  params:
-                    type: object
-                    properties:
-                      valence:
-                        type: array
-                        items: { type: number }
-                      energy:
-                        type: array
-                        items: { type: number }
-        "404": { description: No encontrado, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
 
     ResolveItem:
       type: object

@@ -5,9 +5,8 @@ services:
     env_file:
       - .env
     environment:
-      - DEBUG=true
-      - CORS_ORIGINS=*
-      - DEFAULT_PROVIDER=spotify
+      - DEBUG=${DEBUG}
+      - CORS_ORIGINS=${CORS_ORIGINS}
+      - DEFAULT_PROVIDER=${DEFAULT_PROVIDER}
     ports:
       - "8020:8020"
-
