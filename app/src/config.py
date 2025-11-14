@@ -19,3 +19,12 @@ class Config:
     # iTunes Search
     ITUNES_COUNTRY = os.getenv("ITUNES_COUNTRY", "US")
 
+    # Amazon Music Search / Audio Features (client credentials only)
+    AMAZON_MUSIC_API_BASE = os.getenv("AMAZON_MUSIC_API_BASE", "https://api.music.amazon.dev/v1")
+    AMAZON_MUSIC_CLIENT_ID = os.getenv("AMAZON_MUSIC_CLIENT_ID")
+    AMAZON_MUSIC_CLIENT_SECRET = os.getenv("AMAZON_MUSIC_CLIENT_SECRET")
+    AMAZON_MUSIC_TOKEN_SCOPE = os.getenv("AMAZON_MUSIC_TOKEN_SCOPE", "music:catalog")
+    AMAZON_MUSIC_TOKEN_URL = os.getenv("AMAZON_MUSIC_TOKEN_URL", "https://api.amazon.com/auth/o2/token")
+    AMAZON_MUSIC_COUNTRY = os.getenv("AMAZON_MUSIC_COUNTRY", "US")
+    AMAZON_MUSIC_AUTH_SCOPE = os.getenv("AMAZON_MUSIC_AUTH_SCOPE", "music::library:read")
+    AMAZON_MUSIC_AUTH_REDIRECT_URI = os.getenv("AMAZON_MUSIC_AUTH_REDIRECT_URI")

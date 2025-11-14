@@ -82,12 +82,47 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"ids\": [\n    \"4uLU6hMCjMI75M1A2tKUQC\",\n    \"0qOnSQQF0yzuPWsXrQ9paz\"\n  ]\n}"
+          "raw": "{\n  \"ids\": [\n    \"4uLU6hMCjMI75M1A2tKUQC\",\n    \"0qOnSQQF0yzuPWsXrQ9paz\"\n  ],\n  \"provider\": \"spotify\"\n}"
         },
         "url": {
           "raw": "{{baseUrl}}/catalog/audio-features",
           "host": ["{{baseUrl}}"],
           "path": ["catalog", "audio-features"]
+        }
+      }
+    },
+    {
+      "name": "Audio Features (Amazon) /catalog/audio-features",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"ids\": [\n    \"B0F8NQ35V1\",\n    \"B0F8NQ35V2\"\n  ],\n  \"provider\": \"amazon_music\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/catalog/audio-features",
+          "host": ["{{baseUrl}}"],
+          "path": ["catalog", "audio-features"]
+        }
+      }
+    },
+    {
+      "name": "Amazon Auth /auth/amazon",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/auth/amazon?redirect_uri={{amazon_redirect_uri}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["auth", "amazon"],
+          "query": [
+            {
+              "key": "redirect_uri",
+              "value": "{{amazon_redirect_uri}}"
+            }
+          ]
         }
       }
     },
@@ -106,6 +141,24 @@
           "raw": "{{baseUrl}}/catalog/search-spotify",
           "host": ["{{baseUrl}}"],
           "path": ["catalog", "search-spotify"]
+        }
+      }
+    },
+    {
+      "name": "Search Amazon /catalog/search-amazon",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Fix You\",\n  \"artist\": \"Coldplay\",\n  \"limit\": 1\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/catalog/search-amazon",
+          "host": ["{{baseUrl}}"],
+          "path": ["catalog", "search-amazon"]
         }
       }
     },
@@ -147,4 +200,3 @@
     }
   ]
 }
-

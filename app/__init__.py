@@ -10,6 +10,7 @@ from .src.config import Config
 from .routes.health import bp as health_bp
 from .routes.playlists import bp as playlists_bp
 from .routes.catalog import bp as catalog_bp
+from .routes.auth import bp as auth_bp
 
 
 def create_app():
@@ -23,6 +24,7 @@ def create_app():
     app.register_blueprint(health_bp)
     app.register_blueprint(playlists_bp, url_prefix="/playlists")
     app.register_blueprint(catalog_bp, url_prefix="/catalog")
+    app.register_blueprint(auth_bp, url_prefix="/auth")
 
     # Logging simple de todas las peticiones entrantes
     logging.basicConfig(level=logging.DEBUG if getattr(Config, 'DEBUG', True) else logging.INFO)

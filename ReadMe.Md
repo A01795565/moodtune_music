@@ -1,12 +1,12 @@
 MoodTune Music Service
 
-Servicio/API de integración con proveedores de música (Spotify e iTunes). Expone operaciones de catálogo y creación de playlists para que otros servicios (por ejemplo `moodtune_rag`) no dependan directamente de APIs externas. Basado en Flask + Blueprints.
+Servicio/API de integración con proveedores de música (Spotify, iTunes y Amazon Music no oficial). Expone operaciones de catálogo y creación de playlists para que otros servicios (por ejemplo `moodtune_rag`) no dependan directamente de APIs externas. Basado en Flask + Blueprints.
 
 Características
 - Playlists: creación en el proveedor y agregado de pistas (Spotify soportado).
-- Catálogo: recomendaciones por emoción y audio-features (valence/energy) vía Spotify.
-- Resolución por título+artista: endpoints para normalizar resultados (iTunes/Spotify).
-- Proveedor por defecto configurable vía `.env` (`DEFAULT_PROVIDER=spotify | itunes`).
+- Catálogo: recomendaciones por emoción y audio-features (valence/energy) vía Spotify y Amazon Music (requiere token del API no oficial).
+- Resolución por título+artista: endpoints para normalizar resultados (iTunes/Spotify/Amazon Music).
+- Proveedor por defecto configurable vía `.env` (`DEFAULT_PROVIDER=spotify | itunes | amazon_music`).
 
 Endpoints
 - `GET /health` Estado del servicio.
@@ -46,7 +46,7 @@ OpenAPI y Postman
 Requisitos
 - Copia `.env.example` a `.env` y completa valores.
 - Para `/playlists`: token OAuth del usuario (este servicio no maneja el login OAuth).
-- Para catálogo: `SPOTIFY_CLIENT_ID` y `SPOTIFY_CLIENT_SECRET` (Client Credentials).
+- Para catálogo: `SPOTIFY_CLIENT_ID` y `SPOTIFY_CLIENT_SECRET` (Client Credentials). Si usas Amazon Music como proveedor por defecto, configura `AMAZON_MUSIC_CLIENT_ID`/`AMAZON_MUSIC_CLIENT_SECRET` para que MoodTune obtenga automáticamente un access token vía OAuth 2.0 (scope por defecto `music:catalog`, `token URL` configurable con `AMAZON_MUSIC_TOKEN_URL`); el host por defecto es `https://api.music.amazon.dev/v1`.
 
 Ejecutar en local (venv)
 ```
@@ -71,5 +71,4 @@ curl -X POST http://localhost:8020/catalog/audio-features -H "Content-Type: appl
 
 Notas
 - No expongas credenciales reales en el repositorio; usa `.env.example`.
-- `DEFAULT_PROVIDER` también afecta a la resolución de título+artista y puede usarse por `moodtune_rag`.
-
+- `DEFAULT_PROVIDER` también afecta a la resolución de título+artista y puede usarse por `moodtune_rag` (valores válidos: `spotify`, `itunes`, `amazon_music`).

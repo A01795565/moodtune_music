@@ -5,8 +5,9 @@ servicios (p. ej., moodtune_rag) no dependan directamente de la API de Spotify.
 """
 
 from flask import Blueprint, jsonify, request
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 
+from ..src.services.amazon_music_service import AmazonMusicService
 from ..src.services.spotify_service import SpotifyService
 from ..src.services.itunes_service import ItunesService
 from ..src.emotions import EMOTION_PARAMS
@@ -27,7 +28,11 @@ def audio_features():
         ids: List[str] = p.get("ids") or []
         if not ids:
             return jsonify({"error": "ids requerido"}), 400
-        svc = SpotifyService()
+        provider_name = (p.get("provider") or Config.DEFAULT_PROVIDER or "spotify").lower()
+        if provider_name == "amazon_music":
+            svc = AmazonMusicService()
+        else:
+            svc = SpotifyService()
         feats = svc.audio_features(ids)
         # devolver solo campos de interés
         data = {k: {"valence": v.get("valence"), "energy": v.get("energy")} for k, v in feats.items()}
@@ -72,6 +77,78 @@ def _normalize_spotify_result(t: Dict[str, Any]) -> Dict[str, Any]:
         "thumbnail_url": thumb_url,
     }
 
+
+def _first_value(item: Optional[Dict[str, Any]], *keys: str) -> Optional[str]:
+    if not item:
+        return None
+    for key in keys:
+        value = item.get(key)
+        if value is None:
+            continue
+        if isinstance(value, str):
+            cleaned = value.strip()
+            if cleaned:
+                return cleaned
+            continue
+        return value
+    return None
+
+
+def _extract_artist_name(item: Dict[str, Any]) -> Optional[str]:
+    artists = item.get("artists") or item.get("artist") or item.get("primary_artist")
+    if isinstance(artists, list):
+        for artist in artists:
+            if isinstance(artist, dict):
+                name = _first_value(
+                    artist, "name", "artistName", "artist", "primaryArtist"
+                )
+                if name:
+                    return name
+            elif isinstance(artist, str):
+                return artist.strip() or None
+    if isinstance(artists, dict):
+        return _first_value(artists, "name", "artistName", "artist", "primaryArtist")
+    return _first_value(item, "artist", "artistName", "artist_name", "primaryArtist")
+
+
+def _extract_image_urls(item: Dict[str, Any]) -> tuple[Optional[str], Optional[str]]:
+    candidates = item.get("images") or item.get("image") or item.get("artwork")
+    if isinstance(candidates, dict):
+        return (
+            _first_value(candidates, "url", "uri"),
+            _first_value(candidates, "thumbnail", "url", "uri"),
+        )
+    if isinstance(candidates, list):
+        def _url(entry: Any) -> Optional[str]:
+            if isinstance(entry, dict):
+                return _first_value(entry, "url", "uri", "thumbnail")
+            if isinstance(entry, str):
+                return entry.strip() or None
+            return None
+        first = candidates[0] if candidates else None
+        last = candidates[-1] if candidates else first
+        return _url(first), _url(last)
+    return None, None
+
+
+def _normalize_amazon_result(item: Dict[str, Any]) -> Dict[str, Any]:
+    track_id = _first_value(item, "id", "asin", "trackId", "track_id", "itemId")
+    image_url, thumb_url = _extract_image_urls(item)
+    return {
+        "id": f"amazon_music-{track_id}" if track_id else None,
+        "external_id": str(track_id) if track_id is not None else None,
+        "provider": "amazon_music",
+        "source": "amazon_music_search",
+        "title": _first_value(item, "title", "name", "trackName"),
+        "artist": _extract_artist_name(item),
+        "uri": _first_value(item, "uri", "url", "permalink", "link", "trackUrl"),
+        "preview_url": _first_value(
+            item, "preview_url", "previewUrl", "preview", "sampleUrl"
+        ),
+        "image_url": image_url,
+        "thumbnail_url": thumb_url or image_url,
+    }
+
 @bp.post("/search-itunes")
 def search_itunes_route():
     """Búsqueda simple de canciones usando iTunes Search API.
@@ -106,6 +183,23 @@ def search_spotify_route():
         if not title or not artist:
             return jsonify({"error": "title y artist requeridos"}), 400
         svc = SpotifyService()
+        items = svc.search_tracks(title, artist, limit=max(1, min(limit, 5)))
+        return jsonify({"items": items, "returned": len(items)}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+
+@bp.post("/search-amazon")
+def search_amazon_route():
+    """Búsqueda simple de canciones usando Amazon Music API (catalog client credentials)."""
+    try:
+        p = request.get_json(force=True) or {}
+        title = (p.get("title") or "").strip()
+        artist = (p.get("artist") or "").strip()
+        limit = int(p.get("limit") or 1)
+        if not title or not artist:
+            return jsonify({"error": "title y artist requeridos"}), 400
+        svc = AmazonMusicService()
         items = svc.search_tracks(title, artist, limit=max(1, min(limit, 5)))
         return jsonify({"items": items, "returned": len(items)}), 200
     except Exception as e:
@@ -150,6 +244,10 @@ def resolve_track_title_artist():
         if provider == "itunes":
             raw = ItunesService().search_tracks(title, artist, limit=max(1, min(limit, 5)))
             items = [_normalize_itunes_result(x) for x in (raw or [])]
+        elif provider == "amazon_music":
+            svc = AmazonMusicService()
+            raw_amz = svc.search_tracks(title, artist, limit=max(1, min(limit, 5)))
+            items = [_normalize_amazon_result(x) for x in (raw_amz or [])]
         else:
             svc = SpotifyService()
             raw_sp = svc.search_tracks(title, artist, limit=max(1, min(limit, 5)))
@@ -182,6 +280,10 @@ def resolve_batch():
             if provider == "itunes":
                 raw = ItunesService().search_tracks(title, artist, limit=max(1, min(per_item_limit, 5)))
                 norm = [_normalize_itunes_result(x) for x in (raw or [])]
+            elif provider == "amazon_music":
+                svc = AmazonMusicService()
+                raw_amz = svc.search_tracks(title, artist, limit=max(1, min(per_item_limit, 5)))
+                norm = [_normalize_amazon_result(x) for x in (raw_amz or [])]
             else:
                 svc = SpotifyService()
                 raw_sp = svc.search_tracks(title, artist, limit=max(1, min(per_item_limit, 5)))
