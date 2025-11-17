@@ -26,6 +26,23 @@ tags:
   - name: Auth
 
 paths:
+  /:
+    get:
+      tags: [Health]
+      summary: Endpoint raíz - estado de aplicación
+      operationId: musicRoot
+      security: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name: { type: string, example: moodtune_music }
+                  status: { type: string, example: ok }
+
   /health:
     get:
       tags: [Health]
@@ -38,7 +55,7 @@ paths:
   /playlists:
     post:
       tags: [Playlists]
-      summary: Crear playlist en Spotify y agregar tracks
+      summary: Crear playlist en proveedor especificado y agregar tracks
       operationId: createPlaylist
       requestBody:
         required: true
@@ -48,6 +65,97 @@ paths:
               $ref: "#/components/schemas/CreatePlaylistRequest"
       responses:
         "201": { description: Creada, content: { application/json: { schema: { $ref: "#/components/schemas/CreatePlaylistResponse" } } } }
+        "400": { description: Error de validación, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+        "502": { description: Error proveedor, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+
+  /playlists/moodtune:
+    post:
+      tags: [Playlists]
+      summary: Crear playlist con metadatos MoodTune (user_id, inference_id, intention, emotion)
+      operationId: createPlaylistMoodtune
+      description: |
+        Endpoint especializado para que el frontend de MoodTune guarde playlists completas con metadatos adicionales.
+        Funciona igual que POST /playlists pero retorna información adicional de MoodTune.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CreatePlaylistRequest"
+                - type: object
+                  properties:
+                    user_id: { type: string, format: uuid, description: ID de usuario MoodTune }
+                    inference_id: { type: string, format: uuid, description: ID de inferencia FER }
+                    intention: { type: string, description: Intención del usuario }
+                    emotion: { type: string, description: Emoción detectada }
+      responses:
+        "201":
+          description: Creada
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/CreatePlaylistResponse"
+                  - type: object
+                    properties:
+                      user_id: { type: string, format: uuid }
+                      inference_id: { type: string, format: uuid }
+                      intention: { type: string }
+                      emotion: { type: string }
+        "400": { description: Error de validación, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+        "502": { description: Error proveedor, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+
+  /playlists/content:
+    post:
+      tags: [Playlists]
+      summary: Obtener contenido de una playlist existente
+      operationId: getPlaylistContent
+      description: |
+        Recupera una playlist del proveedor externo para mostrarla en el frontend.
+        Obtiene información completa incluyendo tracks, imágenes y metadatos.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                provider: { type: string, enum: [spotify, amazon_music, apple_music], description: Proveedor musical }
+                external_playlist_id: { type: string, description: ID de la playlist en el proveedor }
+                provider_access_token: { type: string, description: Token de acceso (opcional) }
+              required: [external_playlist_id]
+      responses:
+        "200":
+          description: Contenido de la playlist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  provider: { type: string }
+                  playlist_id: { type: string }
+                  title: { type: string }
+                  description: { type: string, nullable: true }
+                  owner: { type: string }
+                  tracks:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id: { type: string }
+                        uri: { type: string }
+                        title: { type: string }
+                        artist: { type: string }
+                        album: { type: string }
+                        duration_ms: { type: integer }
+                        preview_url: { type: string, nullable: true }
+                        image_url: { type: string, nullable: true }
+                        external_urls: { type: object }
+                        added_at: { type: string, format: date-time }
+                  tracks_total: { type: integer }
+                  images: { type: array, items: { type: object } }
+                  external_url: { type: string }
         "400": { description: Error de validación, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
         "502": { description: Error proveedor, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
 
@@ -264,10 +372,110 @@ paths:
                   returned: { type: integer }
         "400": { description: Error, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
 
+  /auth/spotify:
+    get:
+      tags: [Auth]
+      summary: Inicia OAuth flow con Spotify usando PKCE
+      operationId: authSpotifyGet
+      description: |
+        Genera URL de autorización de Spotify con PKCE (Proof Key for Code Exchange).
+        Almacena el estado y code_verifier para validación posterior en el callback.
+      parameters:
+        - in: query
+          name: redirect_uri
+          schema: { type: string }
+          required: false
+          description: URI de redirección (usa SPOTIFY_AUTH_REDIRECT_URI si no se provee)
+        - in: query
+          name: scope
+          schema: { type: string }
+          description: Scopes solicitados (default playlist-modify-public playlist-modify-private)
+        - in: query
+          name: callback_url
+          schema: { type: string }
+          description: URL del frontend para redirección final (default FRONTEND_CALLBACK_URL)
+      responses:
+        "200":
+          description: URL de autorización construida
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  authorize_url: { type: string }
+                  state: { type: string, description: Estado único para validación }
+                required: [authorize_url, state]
+        "400": { description: Redirect URI requerido, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+        "500": { description: Configuración incompleta, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+
+  /auth/spotify/callback:
+    get:
+      tags: [Auth]
+      summary: Callback de OAuth de Spotify
+      operationId: authSpotifyCallback
+      description: |
+        Recibe el código de autorización de Spotify, lo intercambia por tokens
+        y redirige al frontend con los tokens en el URL hash.
+      parameters:
+        - in: query
+          name: code
+          schema: { type: string }
+          required: true
+          description: Código de autorización de Spotify
+        - in: query
+          name: state
+          schema: { type: string }
+          required: true
+          description: Estado generado en /auth/spotify
+        - in: query
+          name: error
+          schema: { type: string }
+          required: false
+          description: Error si usuario deniega autorización
+      responses:
+        "302":
+          description: Redirección al frontend con tokens o error
+          headers:
+            Location:
+              schema:
+                type: string
+                example: "http://localhost:5173/create-playlist#access_token=TOKEN&refresh_token=REFRESH&expires_in=3600"
+
+  /auth/spotify/refresh:
+    post:
+      tags: [Auth]
+      summary: Refrescar token de acceso de Spotify
+      operationId: authSpotifyRefresh
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refresh_token: { type: string }
+              required: [refresh_token]
+      responses:
+        "200":
+          description: Token refrescado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  provider: { type: string, example: spotify }
+                  token_type: { type: string, example: Bearer }
+                  scope: { type: string }
+                  access_token: { type: string }
+                  refresh_token: { type: string }
+                  expires_in: { type: integer }
+        "400": { description: Refresh token requerido, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+        "502": { description: Error de Spotify, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+
   /auth/amazon:
     get:
       tags: [Auth]
-      summary: Construye la URL de autorización de Amazon Music para iniciar OAuth.
+      summary: Construye la URL de autorización de Amazon Music para iniciar OAuth
       operationId: authAmazonGet
       parameters:
         - in: query

@@ -28,3 +28,12 @@ class Config:
     AMAZON_MUSIC_COUNTRY = os.getenv("AMAZON_MUSIC_COUNTRY", "US")
     AMAZON_MUSIC_AUTH_SCOPE = os.getenv("AMAZON_MUSIC_AUTH_SCOPE", "music::library:read")
     AMAZON_MUSIC_AUTH_REDIRECT_URI = os.getenv("AMAZON_MUSIC_AUTH_REDIRECT_URI")
+
+    # Spotify OAuth (Authorization Code + PKCE)
+    SPOTIFY_AUTH_REDIRECT_URI = os.getenv("SPOTIFY_AUTH_REDIRECT_URI")
+    SPOTIFY_AUTH_SCOPES = os.getenv("SPOTIFY_AUTH_SCOPES", "playlist-modify-public playlist-modify-private")
+
+    # Tokens de usuario/servicio para crear playlists en proveedores
+    SPOTIFY_USER_TOKEN = os.getenv("SPOTIFY_USER_TOKEN")
+    APPLE_MUSIC_USER_TOKEN = os.getenv("APPLE_MUSIC_USER_TOKEN")
+    AMAZON_MUSIC_USER_TOKEN = os.getenv("AMAZON_MUSIC_USER_TOKEN")

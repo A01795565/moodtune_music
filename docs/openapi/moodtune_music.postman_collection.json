@@ -1,202 +1,2732 @@
 {
-  "info": {
-    "name": "MoodTune Music API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "Health /health",
-      "request": {
-        "method": "GET",
-        "url": {
-          "raw": "{{baseUrl}}/health",
-          "host": ["{{baseUrl}}"],
-          "path": ["health"]
-        }
-      }
-    },
-    {
-      "name": "Resolve /catalog/resolve",
-      "request": {
-        "method": "POST",
-        "header": [
-          { "key": "Content-Type", "value": "application/json" }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"title\": \"Fix You\",\n  \"artist\": \"Coldplay\",\n  \"limit\": 1\n}"
+    "item": [
+        {
+            "name": "/",
+            "description": "",
+            "item": [
+                {
+                    "id": "5674277c-c202-40f0-9f9f-f14c75b95601",
+                    "name": "Endpoint raíz - estado de aplicación",
+                    "request": {
+                        "name": "Endpoint raíz - estado de aplicación",
+                        "description": {},
+                        "url": {
+                            "path": [
+                                ""
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "GET",
+                        "body": {},
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "01c43046-26e3-4fde-bfed-23bc5a6a71b5",
+                            "name": "OK",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        ""
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"name\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                }
+            ]
         },
-        "url": {
-          "raw": "{{baseUrl}}/catalog/resolve",
-          "host": ["{{baseUrl}}"],
-          "path": ["catalog", "resolve"]
-        }
-      }
-    },
-    {
-      "name": "Resolve Batch /catalog/resolve-batch",
-      "request": {
-        "method": "POST",
-        "header": [
-          { "key": "Content-Type", "value": "application/json" }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"items\": [\n    {\n      \"title\": \"Fix You\",\n      \"artist\": \"Coldplay\"\n    },\n    {\n      \"title\": \"Yellow\",\n      \"artist\": \"Coldplay\"\n    }\n  ],\n  \"per_item_limit\": 1\n}"
+        {
+            "name": "health",
+            "description": "",
+            "item": [
+                {
+                    "id": "023950c4-99f1-433c-9b05-3ac6e26c6407",
+                    "name": "Healthcheck",
+                    "request": {
+                        "name": "Healthcheck",
+                        "description": {},
+                        "url": {
+                            "path": [
+                                "health"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "GET",
+                        "body": {},
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "645362ac-7362-4031-a987-2206ff916ac0",
+                            "name": "OK",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "health"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"status\": \"<string>\",\n  \"service\": \"<string>\",\n  \"debug\": \"<boolean>\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                }
+            ]
         },
-        "url": {
-          "raw": "{{baseUrl}}/catalog/resolve-batch",
-          "host": ["{{baseUrl}}"],
-          "path": ["catalog", "resolve-batch"]
-        }
-      }
-    },
-    {
-      "name": "List Emotions /catalog/emotions",
-      "request": {
-        "method": "GET",
-        "url": {
-          "raw": "{{baseUrl}}/catalog/emotions",
-          "host": ["{{baseUrl}}"],
-          "path": ["catalog", "emotions"]
-        }
-      }
-    },
-    {
-      "name": "Emotion Params /catalog/emotions/{emotion}",
-      "request": {
-        "method": "GET",
-        "url": {
-          "raw": "{{baseUrl}}/catalog/emotions/{{emotion}}",
-          "host": ["{{baseUrl}}"],
-          "path": ["catalog", "emotions", "{{emotion}}"]
-        }
-      }
-    },
-    {
-      "name": "Audio Features /catalog/audio-features",
-      "request": {
-        "method": "POST",
-        "header": [
-          { "key": "Content-Type", "value": "application/json" }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"ids\": [\n    \"4uLU6hMCjMI75M1A2tKUQC\",\n    \"0qOnSQQF0yzuPWsXrQ9paz\"\n  ],\n  \"provider\": \"spotify\"\n}"
+        {
+            "name": "playlists",
+            "description": "",
+            "item": [
+                {
+                    "id": "225b2cbe-43f2-4698-bed9-41d202d2964a",
+                    "name": "Crear playlist en proveedor especificado y agregar tracks",
+                    "request": {
+                        "name": "Crear playlist en proveedor especificado y agregar tracks",
+                        "description": {},
+                        "url": {
+                            "path": [
+                                "playlists"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"provider_access_token\": \"<string>\",\n  \"title\": \"<string>\",\n  \"uris\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"provider\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                            "options": {
+                                "raw": {
+                                    "headerFamily": "json",
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "9df61ec3-66b2-466d-aa2a-d5fdd8f5eaee",
+                            "name": "Creada",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "playlists"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"provider_access_token\": \"<string>\",\n  \"title\": \"<string>\",\n  \"uris\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"provider\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Created",
+                            "code": 201,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"provider\": \"<string>\",\n  \"external_playlist_id\": \"<string>\",\n  \"deep_link_url\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tracks_added\": \"<integer>\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "d629fb1c-6e0a-41c5-b6d0-035559b6ce48",
+                            "name": "Error de validación",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "playlists"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"provider_access_token\": \"<string>\",\n  \"title\": \"<string>\",\n  \"uris\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"provider\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Bad Request",
+                            "code": 400,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"error\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "080b7948-0e28-4450-a4f8-905cf0411abb",
+                            "name": "Error proveedor",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "playlists"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"provider_access_token\": \"<string>\",\n  \"title\": \"<string>\",\n  \"uris\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"provider\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            },
+                            "status": "Bad Gateway",
+                            "code": 502,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"error\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                },
+                {
+                    "name": "moodtune",
+                    "description": "",
+                    "item": [
+                        {
+                            "id": "273b85f6-5b25-4d4d-bfae-9caf6bda64c1",
+                            "name": "Crear playlist con metadatos MoodTune (user_id, inference_id, intention, emotion)",
+                            "request": {
+                                "name": "Crear playlist con metadatos MoodTune (user_id, inference_id, intention, emotion)",
+                                "description": {
+                                    "content": "Endpoint especializado para que el frontend de MoodTune guarde playlists completas con metadatos adicionales.\nFunciona igual que POST /playlists pero retorna información adicional de MoodTune.\n",
+                                    "type": "text/plain"
+                                },
+                                "url": {
+                                    "path": [
+                                        "playlists",
+                                        "moodtune"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"provider_access_token\": \"<string>\",\n  \"title\": \"<string>\",\n  \"uris\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"provider\": \"<string>\",\n  \"description\": \"<string>\",\n  \"user_id\": \"<uuid>\",\n  \"inference_id\": \"<uuid>\",\n  \"intention\": \"<string>\",\n  \"emotion\": \"<string>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "340d1f50-b77d-45b9-998d-0df0ab163e8e",
+                                    "name": "Creada",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "playlists",
+                                                "moodtune"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"provider_access_token\": \"<string>\",\n  \"title\": \"<string>\",\n  \"uris\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"provider\": \"<string>\",\n  \"description\": \"<string>\",\n  \"user_id\": \"<uuid>\",\n  \"inference_id\": \"<uuid>\",\n  \"intention\": \"<string>\",\n  \"emotion\": \"<string>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Created",
+                                    "code": 201,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"provider\": \"<string>\",\n  \"external_playlist_id\": \"<string>\",\n  \"deep_link_url\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tracks_added\": \"<integer>\",\n  \"user_id\": \"<uuid>\",\n  \"inference_id\": \"<uuid>\",\n  \"intention\": \"<string>\",\n  \"emotion\": \"<string>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                },
+                                {
+                                    "id": "b8e433f9-6f73-4558-9d42-aee07fa804b5",
+                                    "name": "Error de validación",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "playlists",
+                                                "moodtune"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"provider_access_token\": \"<string>\",\n  \"title\": \"<string>\",\n  \"uris\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"provider\": \"<string>\",\n  \"description\": \"<string>\",\n  \"user_id\": \"<uuid>\",\n  \"inference_id\": \"<uuid>\",\n  \"intention\": \"<string>\",\n  \"emotion\": \"<string>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Bad Request",
+                                    "code": 400,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"error\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                },
+                                {
+                                    "id": "b3cb66c1-c136-4f4b-a34c-505b9b1ed21b",
+                                    "name": "Error proveedor",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "playlists",
+                                                "moodtune"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"provider_access_token\": \"<string>\",\n  \"title\": \"<string>\",\n  \"uris\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"provider\": \"<string>\",\n  \"description\": \"<string>\",\n  \"user_id\": \"<uuid>\",\n  \"inference_id\": \"<uuid>\",\n  \"intention\": \"<string>\",\n  \"emotion\": \"<string>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Bad Gateway",
+                                    "code": 502,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"error\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "content",
+                    "description": "",
+                    "item": [
+                        {
+                            "id": "a271b60c-f995-42b1-8c61-04a9f4dcb238",
+                            "name": "Obtener contenido de una playlist existente",
+                            "request": {
+                                "name": "Obtener contenido de una playlist existente",
+                                "description": {
+                                    "content": "Recupera una playlist del proveedor externo para mostrarla en el frontend.\nObtiene información completa incluyendo tracks, imágenes y metadatos.\n",
+                                    "type": "text/plain"
+                                },
+                                "url": {
+                                    "path": [
+                                        "playlists",
+                                        "content"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"external_playlist_id\": \"<string>\",\n  \"provider\": \"amazon_music\",\n  \"provider_access_token\": \"<string>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "52a377b2-6862-4c3d-aa7b-51aab559107e",
+                                    "name": "Contenido de la playlist",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "playlists",
+                                                "content"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"external_playlist_id\": \"<string>\",\n  \"provider\": \"amazon_music\",\n  \"provider_access_token\": \"<string>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"provider\": \"<string>\",\n  \"playlist_id\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"owner\": \"<string>\",\n  \"tracks\": [\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"title\": \"<string>\",\n      \"artist\": \"<string>\",\n      \"album\": \"<string>\",\n      \"duration_ms\": \"<integer>\",\n      \"preview_url\": \"<string>\",\n      \"image_url\": \"<string>\",\n      \"external_urls\": {},\n      \"added_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"title\": \"<string>\",\n      \"artist\": \"<string>\",\n      \"album\": \"<string>\",\n      \"duration_ms\": \"<integer>\",\n      \"preview_url\": \"<string>\",\n      \"image_url\": \"<string>\",\n      \"external_urls\": {},\n      \"added_at\": \"<dateTime>\"\n    }\n  ],\n  \"tracks_total\": \"<integer>\",\n  \"external_url\": \"<string>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                },
+                                {
+                                    "id": "855970ef-695c-48fc-bc04-1dcbb7fdb9e8",
+                                    "name": "Error de validación",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "playlists",
+                                                "content"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"external_playlist_id\": \"<string>\",\n  \"provider\": \"amazon_music\",\n  \"provider_access_token\": \"<string>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Bad Request",
+                                    "code": 400,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"error\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                },
+                                {
+                                    "id": "7841aacb-22fb-43c6-8b50-c23a856dc660",
+                                    "name": "Error proveedor",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "playlists",
+                                                "content"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"external_playlist_id\": \"<string>\",\n  \"provider\": \"amazon_music\",\n  \"provider_access_token\": \"<string>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Bad Gateway",
+                                    "code": 502,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"error\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        }
+                    ]
+                }
+            ]
         },
-        "url": {
-          "raw": "{{baseUrl}}/catalog/audio-features",
-          "host": ["{{baseUrl}}"],
-          "path": ["catalog", "audio-features"]
-        }
-      }
-    },
-    {
-      "name": "Audio Features (Amazon) /catalog/audio-features",
-      "request": {
-        "method": "POST",
-        "header": [
-          { "key": "Content-Type", "value": "application/json" }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"ids\": [\n    \"B0F8NQ35V1\",\n    \"B0F8NQ35V2\"\n  ],\n  \"provider\": \"amazon_music\"\n}"
+        {
+            "name": "catalog",
+            "description": "",
+            "item": [
+                {
+                    "name": "emotions",
+                    "description": "",
+                    "item": [
+                        {
+                            "id": "ed4929c8-2bc6-418e-a22c-ffb963637689",
+                            "name": "Listado de emociones y parámetros",
+                            "request": {
+                                "name": "Listado de emociones y parámetros",
+                                "description": {},
+                                "url": {
+                                    "path": [
+                                        "catalog",
+                                        "emotions"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {},
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "e9ad453d-5f74-475e-a884-afd392e4918a",
+                                    "name": "OK",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "catalog",
+                                                "emotions"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "GET",
+                                        "body": {}
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"items\": {\n    \"key_0\": {\n      \"valence\": [\n        \"<number>\",\n        \"<number>\"\n      ],\n      \"energy\": [\n        \"<number>\",\n        \"<number>\"\n      ]\n    },\n    \"key_1\": {\n      \"valence\": [\n        \"<number>\",\n        \"<number>\"\n      ],\n      \"energy\": [\n        \"<number>\",\n        \"<number>\"\n      ]\n    },\n    \"key_2\": {\n      \"valence\": [\n        \"<number>\",\n        \"<number>\"\n      ],\n      \"energy\": [\n        \"<number>\",\n        \"<number>\"\n      ]\n    }\n  }\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        },
+                        {
+                            "name": "{emotion}",
+                            "description": "",
+                            "item": [
+                                {
+                                    "id": "0c6256f7-d568-4d4c-a2a8-09fe0bebad3e",
+                                    "name": "Parámetros para una emoción específica",
+                                    "request": {
+                                        "name": "Parámetros para una emoción específica",
+                                        "description": {},
+                                        "url": {
+                                            "path": [
+                                                "catalog",
+                                                "emotions",
+                                                ":emotion"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": [
+                                                {
+                                                    "type": "any",
+                                                    "value": "<string>",
+                                                    "key": "emotion",
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "(Required) ",
+                                                        "type": "text/plain"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "GET",
+                                        "body": {},
+                                        "auth": null
+                                    },
+                                    "response": [
+                                        {
+                                            "id": "720f17f0-86e5-4a5e-b4d2-af8cba2be525",
+                                            "name": "OK",
+                                            "originalRequest": {
+                                                "url": {
+                                                    "path": [
+                                                        "catalog",
+                                                        "emotions",
+                                                        ":emotion"
+                                                    ],
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "query": [],
+                                                    "variable": [
+                                                        {
+                                                            "disabled": false,
+                                                            "description": {
+                                                                "content": "(Required) ",
+                                                                "type": "text/plain"
+                                                            },
+                                                            "type": "any",
+                                                            "value": "<string>",
+                                                            "key": "emotion"
+                                                        }
+                                                    ]
+                                                },
+                                                "header": [
+                                                    {
+                                                        "key": "Accept",
+                                                        "value": "application/json"
+                                                    }
+                                                ],
+                                                "method": "GET",
+                                                "body": {}
+                                            },
+                                            "status": "OK",
+                                            "code": 200,
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "body": "{\n  \"emotion\": \"<string>\",\n  \"params\": {\n    \"valence\": [\n      \"<number>\",\n      \"<number>\"\n    ],\n    \"energy\": [\n      \"<number>\",\n      \"<number>\"\n    ]\n  }\n}",
+                                            "cookie": [],
+                                            "_postman_previewlanguage": "json"
+                                        },
+                                        {
+                                            "id": "1d624da2-6aa6-45c1-bbb4-06df598d8733",
+                                            "name": "No encontrado",
+                                            "originalRequest": {
+                                                "url": {
+                                                    "path": [
+                                                        "catalog",
+                                                        "emotions",
+                                                        ":emotion"
+                                                    ],
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "query": [],
+                                                    "variable": [
+                                                        {
+                                                            "disabled": false,
+                                                            "description": {
+                                                                "content": "(Required) ",
+                                                                "type": "text/plain"
+                                                            },
+                                                            "type": "any",
+                                                            "value": "<string>",
+                                                            "key": "emotion"
+                                                        }
+                                                    ]
+                                                },
+                                                "header": [
+                                                    {
+                                                        "key": "Accept",
+                                                        "value": "application/json"
+                                                    }
+                                                ],
+                                                "method": "GET",
+                                                "body": {}
+                                            },
+                                            "status": "Not Found",
+                                            "code": 404,
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "body": "{\n  \"error\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                                            "cookie": [],
+                                            "_postman_previewlanguage": "json"
+                                        }
+                                    ],
+                                    "event": [],
+                                    "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "resolve",
+                    "description": "",
+                    "item": [
+                        {
+                            "id": "4249de23-bc97-4715-8205-706f93dd6b57",
+                            "name": "Resolver título+artista a pista normalizada (proveedor controlado por .env)",
+                            "request": {
+                                "name": "Resolver título+artista a pista normalizada (proveedor controlado por .env)",
+                                "description": {},
+                                "url": {
+                                    "path": [
+                                        "catalog",
+                                        "resolve"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"title\": \"<string>\",\n  \"artist\": \"<string>\",\n  \"limit\": \"<integer>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "c00a5682-947c-49da-8fe5-dc26135d5449",
+                                    "name": "OK",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "catalog",
+                                                "resolve"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"title\": \"<string>\",\n  \"artist\": \"<string>\",\n  \"limit\": \"<integer>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"items\": [\n    {\n      \"id\": \"<string>\",\n      \"external_id\": \"<string>\",\n      \"provider\": \"spotify\",\n      \"source\": \"<string>\",\n      \"title\": \"<string>\",\n      \"artist\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"preview_url\": \"<string>\",\n      \"image_url\": \"<string>\",\n      \"thumbnail_url\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"external_id\": \"<string>\",\n      \"provider\": \"itunes\",\n      \"source\": \"<string>\",\n      \"title\": \"<string>\",\n      \"artist\": \"<string>\",\n      \"uri\": \"<string>\",\n      \"preview_url\": \"<string>\",\n      \"image_url\": \"<string>\",\n      \"thumbnail_url\": \"<string>\"\n    }\n  ],\n  \"returned\": \"<integer>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                },
+                                {
+                                    "id": "305c30cb-8c67-4a09-84cd-89bf858bc3c1",
+                                    "name": "Error",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "catalog",
+                                                "resolve"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"title\": \"<string>\",\n  \"artist\": \"<string>\",\n  \"limit\": \"<integer>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Bad Request",
+                                    "code": 400,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"error\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "resolve-batch",
+                    "description": "",
+                    "item": [
+                        {
+                            "id": "461f4590-6677-4dcc-b38b-7d59896eabe5",
+                            "name": "Resolver en lote varios título+artista (proveedor controlado por .env)",
+                            "request": {
+                                "name": "Resolver en lote varios título+artista (proveedor controlado por .env)",
+                                "description": {},
+                                "url": {
+                                    "path": [
+                                        "catalog",
+                                        "resolve-batch"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"items\": [\n    {\n      \"title\": \"<string>\",\n      \"artist\": \"<string>\"\n    },\n    {\n      \"title\": \"<string>\",\n      \"artist\": \"<string>\"\n    }\n  ],\n  \"per_item_limit\": 1\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "860aea23-2e7a-4d27-a093-43de92864c58",
+                                    "name": "OK",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "catalog",
+                                                "resolve-batch"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"items\": [\n    {\n      \"title\": \"<string>\",\n      \"artist\": \"<string>\"\n    },\n    {\n      \"title\": \"<string>\",\n      \"artist\": \"<string>\"\n    }\n  ],\n  \"per_item_limit\": 1\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"items\": [\n    {\n      \"index\": \"<integer>\",\n      \"title\": \"<string>\",\n      \"artist\": \"<string>\",\n      \"items\": [\n        {\n          \"id\": \"<string>\",\n          \"external_id\": \"<string>\",\n          \"provider\": \"amazon_music\",\n          \"source\": \"<string>\",\n          \"title\": \"<string>\",\n          \"artist\": \"<string>\",\n          \"uri\": \"<string>\",\n          \"preview_url\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"thumbnail_url\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"external_id\": \"<string>\",\n          \"provider\": \"amazon_music\",\n          \"source\": \"<string>\",\n          \"title\": \"<string>\",\n          \"artist\": \"<string>\",\n          \"uri\": \"<string>\",\n          \"preview_url\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"thumbnail_url\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"index\": \"<integer>\",\n      \"title\": \"<string>\",\n      \"artist\": \"<string>\",\n      \"items\": [\n        {\n          \"id\": \"<string>\",\n          \"external_id\": \"<string>\",\n          \"provider\": \"itunes\",\n          \"source\": \"<string>\",\n          \"title\": \"<string>\",\n          \"artist\": \"<string>\",\n          \"uri\": \"<string>\",\n          \"preview_url\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"thumbnail_url\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"external_id\": \"<string>\",\n          \"provider\": \"amazon_music\",\n          \"source\": \"<string>\",\n          \"title\": \"<string>\",\n          \"artist\": \"<string>\",\n          \"uri\": \"<string>\",\n          \"preview_url\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"thumbnail_url\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"returned\": \"<integer>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                },
+                                {
+                                    "id": "da01eae7-9a6d-4525-b928-c422852d5436",
+                                    "name": "Error",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "catalog",
+                                                "resolve-batch"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"items\": [\n    {\n      \"title\": \"<string>\",\n      \"artist\": \"<string>\"\n    },\n    {\n      \"title\": \"<string>\",\n      \"artist\": \"<string>\"\n    }\n  ],\n  \"per_item_limit\": 1\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Bad Request",
+                                    "code": 400,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"error\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "audio-features",
+                    "description": "",
+                    "item": [
+                        {
+                            "id": "5ee2c29e-afa1-4ac9-8494-82343d02c995",
+                            "name": "Audio-features para lista de IDs (Spotify por defecto, acepta amazon_music)",
+                            "request": {
+                                "name": "Audio-features para lista de IDs (Spotify por defecto, acepta amazon_music)",
+                                "description": {},
+                                "url": {
+                                    "path": [
+                                        "catalog",
+                                        "audio-features"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"provider\": \"amazon_music\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "1e39c535-8cf8-4795-b4b2-feab305a649e",
+                                    "name": "OK",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "catalog",
+                                                "audio-features"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"provider\": \"amazon_music\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"items\": {\n    \"key_0\": {\n      \"valence\": \"<float>\",\n      \"energy\": \"<float>\"\n    }\n  }\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                },
+                                {
+                                    "id": "ea132657-151c-4afd-85c2-64046aaa3265",
+                                    "name": "Error",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "catalog",
+                                                "audio-features"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"provider\": \"amazon_music\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Bad Request",
+                                    "code": 400,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"error\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "search-spotify",
+                    "description": "",
+                    "item": [
+                        {
+                            "id": "e9abe19e-7c85-49e5-9550-2b779034ad31",
+                            "name": "Búsqueda simple de canciones en Spotify (Client Credentials)",
+                            "request": {
+                                "name": "Búsqueda simple de canciones en Spotify (Client Credentials)",
+                                "description": {},
+                                "url": {
+                                    "path": [
+                                        "catalog",
+                                        "search-spotify"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"title\": \"<string>\",\n  \"artist\": \"<string>\",\n  \"limit\": \"<integer>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "1a8e1c0d-7a4d-4ba9-b8b2-6cb977a87da9",
+                                    "name": "OK",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "catalog",
+                                                "search-spotify"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"title\": \"<string>\",\n  \"artist\": \"<string>\",\n  \"limit\": \"<integer>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"returned\": \"<integer>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                },
+                                {
+                                    "id": "caad3e4a-b6d8-4703-9958-261b912f0e6b",
+                                    "name": "Error",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "catalog",
+                                                "search-spotify"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"title\": \"<string>\",\n  \"artist\": \"<string>\",\n  \"limit\": \"<integer>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Bad Request",
+                                    "code": 400,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"error\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "search-amazon",
+                    "description": "",
+                    "item": [
+                        {
+                            "id": "bc077a63-9a7e-4d45-a0e6-68b9bd4a966a",
+                            "name": "BÁsqueda simple de canciones en Amazon Music (Client Credentials)",
+                            "request": {
+                                "name": "BÁsqueda simple de canciones en Amazon Music (Client Credentials)",
+                                "description": {},
+                                "url": {
+                                    "path": [
+                                        "catalog",
+                                        "search-amazon"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"title\": \"<string>\",\n  \"artist\": \"<string>\",\n  \"limit\": \"<integer>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "a18465e8-d27b-4add-ba4f-3755122668db",
+                                    "name": "OK",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "catalog",
+                                                "search-amazon"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"title\": \"<string>\",\n  \"artist\": \"<string>\",\n  \"limit\": \"<integer>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"returned\": \"<integer>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                },
+                                {
+                                    "id": "0cf3fbe1-e7e6-4e60-9410-fa7defe94638",
+                                    "name": "Error",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "catalog",
+                                                "search-amazon"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"title\": \"<string>\",\n  \"artist\": \"<string>\",\n  \"limit\": \"<integer>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Bad Request",
+                                    "code": 400,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"error\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "search-itunes",
+                    "description": "",
+                    "item": [
+                        {
+                            "id": "b8d39262-3fba-4a85-b847-50d7972e359c",
+                            "name": "Búsqueda simple de canciones en iTunes Search API",
+                            "request": {
+                                "name": "Búsqueda simple de canciones en iTunes Search API",
+                                "description": {},
+                                "url": {
+                                    "path": [
+                                        "catalog",
+                                        "search-itunes"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"title\": \"<string>\",\n  \"artist\": \"<string>\",\n  \"limit\": \"<integer>\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "headerFamily": "json",
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "35b6e879-9d37-4990-bfc8-ab6050145e67",
+                                    "name": "OK",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "catalog",
+                                                "search-itunes"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"title\": \"<string>\",\n  \"artist\": \"<string>\",\n  \"limit\": \"<integer>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"returned\": \"<integer>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                },
+                                {
+                                    "id": "bd1cb903-522b-47de-885a-c461b3a73bc4",
+                                    "name": "Error",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "catalog",
+                                                "search-itunes"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"title\": \"<string>\",\n  \"artist\": \"<string>\",\n  \"limit\": \"<integer>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "status": "Bad Request",
+                                    "code": 400,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"error\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        }
+                    ]
+                }
+            ]
         },
-        "url": {
-          "raw": "{{baseUrl}}/catalog/audio-features",
-          "host": ["{{baseUrl}}"],
-          "path": ["catalog", "audio-features"]
+        {
+            "name": "auth",
+            "description": "",
+            "item": [
+                {
+                    "name": "spotify",
+                    "description": "",
+                    "item": [
+                        {
+                            "id": "05703c16-959b-4e29-8b3a-4fa0cb121d26",
+                            "name": "Inicia OAuth flow con Spotify usando PKCE",
+                            "request": {
+                                "name": "Inicia OAuth flow con Spotify usando PKCE",
+                                "description": {
+                                    "content": "Genera URL de autorización de Spotify con PKCE (Proof Key for Code Exchange).\nAlmacena el estado y code_verifier para validación posterior en el callback.\n",
+                                    "type": "text/plain"
+                                },
+                                "url": {
+                                    "path": [
+                                        "auth",
+                                        "spotify"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "URI de redirección (usa SPOTIFY_AUTH_REDIRECT_URI si no se provee)",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "redirect_uri",
+                                            "value": "<string>"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "Scopes solicitados (default playlist-modify-public playlist-modify-private)",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "scope",
+                                            "value": "<string>"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "URL del frontend para redirección final (default FRONTEND_CALLBACK_URL)",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "callback_url",
+                                            "value": "<string>"
+                                        }
+                                    ],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {},
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "fcdb69bb-9a11-4f60-9780-341cfdc15e8e",
+                                    "name": "URL de autorización construida",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "auth",
+                                                "spotify"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "URI de redirección (usa SPOTIFY_AUTH_REDIRECT_URI si no se provee)",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "redirect_uri",
+                                                    "value": "<string>"
+                                                },
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "Scopes solicitados (default playlist-modify-public playlist-modify-private)",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "scope",
+                                                    "value": "<string>"
+                                                },
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "URL del frontend para redirección final (default FRONTEND_CALLBACK_URL)",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "callback_url",
+                                                    "value": "<string>"
+                                                }
+                                            ],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "GET",
+                                        "body": {}
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"authorize_url\": \"<string>\",\n  \"state\": \"<string>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                },
+                                {
+                                    "id": "ae4510db-274e-462e-bb1e-273a9c34876b",
+                                    "name": "Redirect URI requerido",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "auth",
+                                                "spotify"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "URI de redirección (usa SPOTIFY_AUTH_REDIRECT_URI si no se provee)",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "redirect_uri",
+                                                    "value": "<string>"
+                                                },
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "Scopes solicitados (default playlist-modify-public playlist-modify-private)",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "scope",
+                                                    "value": "<string>"
+                                                },
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "URL del frontend para redirección final (default FRONTEND_CALLBACK_URL)",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "callback_url",
+                                                    "value": "<string>"
+                                                }
+                                            ],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "GET",
+                                        "body": {}
+                                    },
+                                    "status": "Bad Request",
+                                    "code": 400,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"error\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                },
+                                {
+                                    "id": "02447400-f029-4ffb-9d84-e60d0b621765",
+                                    "name": "Configuración incompleta",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "auth",
+                                                "spotify"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "URI de redirección (usa SPOTIFY_AUTH_REDIRECT_URI si no se provee)",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "redirect_uri",
+                                                    "value": "<string>"
+                                                },
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "Scopes solicitados (default playlist-modify-public playlist-modify-private)",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "scope",
+                                                    "value": "<string>"
+                                                },
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "URL del frontend para redirección final (default FRONTEND_CALLBACK_URL)",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "callback_url",
+                                                    "value": "<string>"
+                                                }
+                                            ],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "GET",
+                                        "body": {}
+                                    },
+                                    "status": "Internal Server Error",
+                                    "code": 500,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"error\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        },
+                        {
+                            "name": "callback",
+                            "description": "",
+                            "item": [
+                                {
+                                    "id": "0fb8c6b9-e10a-46c1-945a-8d4e1f456189",
+                                    "name": "Callback de OAuth de Spotify",
+                                    "request": {
+                                        "name": "Callback de OAuth de Spotify",
+                                        "description": {
+                                            "content": "Recibe el código de autorización de Spotify, lo intercambia por tokens\ny redirige al frontend con los tokens en el URL hash.\n",
+                                            "type": "text/plain"
+                                        },
+                                        "url": {
+                                            "path": [
+                                                "auth",
+                                                "spotify",
+                                                "callback"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "(Required) Código de autorización de Spotify",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "code",
+                                                    "value": "<string>"
+                                                },
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "(Required) Estado generado en /auth/spotify",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "state",
+                                                    "value": "<string>"
+                                                },
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "Error si usuario deniega autorización",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "error",
+                                                    "value": "<string>"
+                                                }
+                                            ],
+                                            "variable": []
+                                        },
+                                        "method": "GET",
+                                        "body": {},
+                                        "auth": null
+                                    },
+                                    "response": [
+                                        {
+                                            "id": "176b3495-b599-4315-b384-502b94565ade",
+                                            "name": "Redirección al frontend con tokens o error",
+                                            "originalRequest": {
+                                                "url": {
+                                                    "path": [
+                                                        "auth",
+                                                        "spotify",
+                                                        "callback"
+                                                    ],
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "query": [
+                                                        {
+                                                            "disabled": false,
+                                                            "description": {
+                                                                "content": "(Required) Código de autorización de Spotify",
+                                                                "type": "text/plain"
+                                                            },
+                                                            "key": "code",
+                                                            "value": "<string>"
+                                                        },
+                                                        {
+                                                            "disabled": false,
+                                                            "description": {
+                                                                "content": "(Required) Estado generado en /auth/spotify",
+                                                                "type": "text/plain"
+                                                            },
+                                                            "key": "state",
+                                                            "value": "<string>"
+                                                        },
+                                                        {
+                                                            "disabled": false,
+                                                            "description": {
+                                                                "content": "Error si usuario deniega autorización",
+                                                                "type": "text/plain"
+                                                            },
+                                                            "key": "error",
+                                                            "value": "<string>"
+                                                        }
+                                                    ],
+                                                    "variable": []
+                                                },
+                                                "method": "GET",
+                                                "body": {}
+                                            },
+                                            "status": "Found",
+                                            "code": 302,
+                                            "header": [
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "Location",
+                                                    "value": "<string>"
+                                                }
+                                            ],
+                                            "cookie": [],
+                                            "_postman_previewlanguage": "text"
+                                        }
+                                    ],
+                                    "event": [],
+                                    "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "refresh",
+                            "description": "",
+                            "item": [
+                                {
+                                    "id": "0a75a749-3d0f-415a-ae01-2f70bd8778b9",
+                                    "name": "Refrescar token de acceso de Spotify",
+                                    "request": {
+                                        "name": "Refrescar token de acceso de Spotify",
+                                        "description": {},
+                                        "url": {
+                                            "path": [
+                                                "auth",
+                                                "spotify",
+                                                "refresh"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "POST",
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n  \"refresh_token\": \"<string>\"\n}",
+                                            "options": {
+                                                "raw": {
+                                                    "headerFamily": "json",
+                                                    "language": "json"
+                                                }
+                                            }
+                                        },
+                                        "auth": null
+                                    },
+                                    "response": [
+                                        {
+                                            "id": "b671cae6-da5b-4ba0-9df8-6e2e38ecaa3c",
+                                            "name": "Token refrescado",
+                                            "originalRequest": {
+                                                "url": {
+                                                    "path": [
+                                                        "auth",
+                                                        "spotify",
+                                                        "refresh"
+                                                    ],
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "query": [],
+                                                    "variable": []
+                                                },
+                                                "header": [
+                                                    {
+                                                        "key": "Content-Type",
+                                                        "value": "application/json"
+                                                    },
+                                                    {
+                                                        "key": "Accept",
+                                                        "value": "application/json"
+                                                    }
+                                                ],
+                                                "method": "POST",
+                                                "body": {
+                                                    "mode": "raw",
+                                                    "raw": "{\n  \"refresh_token\": \"<string>\"\n}",
+                                                    "options": {
+                                                        "raw": {
+                                                            "headerFamily": "json",
+                                                            "language": "json"
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "status": "OK",
+                                            "code": 200,
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "body": "{\n  \"provider\": \"<string>\",\n  \"token_type\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"access_token\": \"<string>\",\n  \"refresh_token\": \"<string>\",\n  \"expires_in\": \"<integer>\"\n}",
+                                            "cookie": [],
+                                            "_postman_previewlanguage": "json"
+                                        },
+                                        {
+                                            "id": "1f2fee09-e8f7-42f7-9276-ae16b3c8a1f5",
+                                            "name": "Refresh token requerido",
+                                            "originalRequest": {
+                                                "url": {
+                                                    "path": [
+                                                        "auth",
+                                                        "spotify",
+                                                        "refresh"
+                                                    ],
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "query": [],
+                                                    "variable": []
+                                                },
+                                                "header": [
+                                                    {
+                                                        "key": "Content-Type",
+                                                        "value": "application/json"
+                                                    },
+                                                    {
+                                                        "key": "Accept",
+                                                        "value": "application/json"
+                                                    }
+                                                ],
+                                                "method": "POST",
+                                                "body": {
+                                                    "mode": "raw",
+                                                    "raw": "{\n  \"refresh_token\": \"<string>\"\n}",
+                                                    "options": {
+                                                        "raw": {
+                                                            "headerFamily": "json",
+                                                            "language": "json"
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "status": "Bad Request",
+                                            "code": 400,
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "body": "{\n  \"error\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                                            "cookie": [],
+                                            "_postman_previewlanguage": "json"
+                                        },
+                                        {
+                                            "id": "64060c34-cf11-4381-97fd-5c72767e3bb8",
+                                            "name": "Error de Spotify",
+                                            "originalRequest": {
+                                                "url": {
+                                                    "path": [
+                                                        "auth",
+                                                        "spotify",
+                                                        "refresh"
+                                                    ],
+                                                    "host": [
+                                                        "{{baseUrl}}"
+                                                    ],
+                                                    "query": [],
+                                                    "variable": []
+                                                },
+                                                "header": [
+                                                    {
+                                                        "key": "Content-Type",
+                                                        "value": "application/json"
+                                                    },
+                                                    {
+                                                        "key": "Accept",
+                                                        "value": "application/json"
+                                                    }
+                                                ],
+                                                "method": "POST",
+                                                "body": {
+                                                    "mode": "raw",
+                                                    "raw": "{\n  \"refresh_token\": \"<string>\"\n}",
+                                                    "options": {
+                                                        "raw": {
+                                                            "headerFamily": "json",
+                                                            "language": "json"
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "status": "Bad Gateway",
+                                            "code": 502,
+                                            "header": [
+                                                {
+                                                    "key": "Content-Type",
+                                                    "value": "application/json"
+                                                }
+                                            ],
+                                            "body": "{\n  \"error\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                                            "cookie": [],
+                                            "_postman_previewlanguage": "json"
+                                        }
+                                    ],
+                                    "event": [],
+                                    "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "amazon",
+                    "description": "",
+                    "item": [
+                        {
+                            "id": "613b900d-de32-43a5-b642-d1b606562bc3",
+                            "name": "Construye la URL de autorización de Amazon Music para iniciar OAuth",
+                            "request": {
+                                "name": "Construye la URL de autorización de Amazon Music para iniciar OAuth",
+                                "description": {},
+                                "url": {
+                                    "path": [
+                                        "auth",
+                                        "amazon"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "URI de retorno que debe coincidir con la registrada en Amazon. Se puede definir como variable de entorno.",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "redirect_uri",
+                                            "value": "<string>"
+                                        },
+                                        {
+                                            "disabled": false,
+                                            "description": {
+                                                "content": "Scopes solicitados; se usa `AMAZON_MUSIC_AUTH_SCOPE` si no se provee.",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "scope",
+                                            "value": "<string>"
+                                        }
+                                    ],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {},
+                                "auth": null
+                            },
+                            "response": [
+                                {
+                                    "id": "f234a826-d415-4e61-88d8-1939bdbdb31e",
+                                    "name": "URL de autorización construida",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "auth",
+                                                "amazon"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "URI de retorno que debe coincidir con la registrada en Amazon. Se puede definir como variable de entorno.",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "redirect_uri",
+                                                    "value": "<string>"
+                                                },
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "Scopes solicitados; se usa `AMAZON_MUSIC_AUTH_SCOPE` si no se provee.",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "scope",
+                                                    "value": "<string>"
+                                                }
+                                            ],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "GET",
+                                        "body": {}
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"authorize_url\": \"<string>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                },
+                                {
+                                    "id": "f882181e-935c-46c3-8803-14e71fb86bac",
+                                    "name": "Redirect URI requerido",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "auth",
+                                                "amazon"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "URI de retorno que debe coincidir con la registrada en Amazon. Se puede definir como variable de entorno.",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "redirect_uri",
+                                                    "value": "<string>"
+                                                },
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "Scopes solicitados; se usa `AMAZON_MUSIC_AUTH_SCOPE` si no se provee.",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "scope",
+                                                    "value": "<string>"
+                                                }
+                                            ],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "GET",
+                                        "body": {}
+                                    },
+                                    "status": "Bad Request",
+                                    "code": 400,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"error\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                },
+                                {
+                                    "id": "d05ab9b0-e87b-4406-ac22-3fe81961f675",
+                                    "name": "Configuración incompleta",
+                                    "originalRequest": {
+                                        "url": {
+                                            "path": [
+                                                "auth",
+                                                "amazon"
+                                            ],
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "query": [
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "URI de retorno que debe coincidir con la registrada en Amazon. Se puede definir como variable de entorno.",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "redirect_uri",
+                                                    "value": "<string>"
+                                                },
+                                                {
+                                                    "disabled": false,
+                                                    "description": {
+                                                        "content": "Scopes solicitados; se usa `AMAZON_MUSIC_AUTH_SCOPE` si no se provee.",
+                                                        "type": "text/plain"
+                                                    },
+                                                    "key": "scope",
+                                                    "value": "<string>"
+                                                }
+                                            ],
+                                            "variable": []
+                                        },
+                                        "header": [
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "method": "GET",
+                                        "body": {}
+                                    },
+                                    "status": "Internal Server Error",
+                                    "code": 500,
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "body": "{\n  \"error\": \"<string>\",\n  \"detail\": \"<string>\"\n}",
+                                    "cookie": [],
+                                    "_postman_previewlanguage": "json"
+                                }
+                            ],
+                            "event": [],
+                            "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                            }
+                        }
+                    ]
+                }
+            ]
         }
-      }
-    },
-    {
-      "name": "Amazon Auth /auth/amazon",
-      "request": {
-        "method": "GET",
-        "url": {
-          "raw": "{{baseUrl}}/auth/amazon?redirect_uri={{amazon_redirect_uri}}",
-          "host": ["{{baseUrl}}"],
-          "path": ["auth", "amazon"],
-          "query": [
-            {
-              "key": "redirect_uri",
-              "value": "{{amazon_redirect_uri}}"
-            }
-          ]
+    ],
+    "event": [],
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://localhost:8020"
         }
-      }
-    },
-    {
-      "name": "Search Spotify /catalog/search-spotify",
-      "request": {
-        "method": "POST",
-        "header": [
-          { "key": "Content-Type", "value": "application/json" }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"title\": \"Fix You\",\n  \"artist\": \"Coldplay\",\n  \"limit\": 1\n}"
-        },
-        "url": {
-          "raw": "{{baseUrl}}/catalog/search-spotify",
-          "host": ["{{baseUrl}}"],
-          "path": ["catalog", "search-spotify"]
+    ],
+    "info": {
+        "_postman_id": "c1aee578-6b5f-4d77-bd41-08f798c9537c",
+        "name": "MoodTune Music API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": {
+            "content": "API para encapsular integración con proveedores musicales (Spotify/iTunes/Amazon Music no oficial).\nExpone:\n- Creación de playlists (requiere token de usuario)\n- Búsquedas por título+artista (Client Credentials / iTunes Search / Amazon Music)\n- Parámetros por emoción\n- Resolución normalizada de canciones y audio-features (incluye Amazon Music)\n\n\nContact Support:\n Name: Equipo 26 – MoodTune\n Email: equipo26@moodtune.com",
+            "type": "text/plain"
         }
-      }
-    },
-    {
-      "name": "Search Amazon /catalog/search-amazon",
-      "request": {
-        "method": "POST",
-        "header": [
-          { "key": "Content-Type", "value": "application/json" }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"title\": \"Fix You\",\n  \"artist\": \"Coldplay\",\n  \"limit\": 1\n}"
-        },
-        "url": {
-          "raw": "{{baseUrl}}/catalog/search-amazon",
-          "host": ["{{baseUrl}}"],
-          "path": ["catalog", "search-amazon"]
-        }
-      }
-    },
-    {
-      "name": "Search iTunes /catalog/search-itunes",
-      "request": {
-        "method": "POST",
-        "header": [
-          { "key": "Content-Type", "value": "application/json" }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"title\": \"Fix You\",\n  \"artist\": \"Coldplay\",\n  \"limit\": 1\n}"
-        },
-        "url": {
-          "raw": "{{baseUrl}}/catalog/search-itunes",
-          "host": ["{{baseUrl}}"],
-          "path": ["catalog", "search-itunes"]
-        }
-      }
-    },
-    {
-      "name": "Create Playlist /playlists",
-      "request": {
-        "method": "POST",
-        "header": [
-          { "key": "Content-Type", "value": "application/json" }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"provider\": \"spotify\",\n  \"provider_access_token\": \"{{spotify_user_token}}\",\n  \"title\": \"Mi Playlist\",\n  \"description\": \"Generada por MoodTune\",\n  \"uris\": [\n    \"spotify:track:4uLU6hMCjMI75M1A2tKUQC\",\n    \"spotify:track:0qOnSQQF0yzuPWsXrQ9paz\"\n  ]\n}"
-        },
-        "url": {
-          "raw": "{{baseUrl}}/playlists",
-          "host": ["{{baseUrl}}"],
-          "path": ["playlists"]
-        }
-      }
     }
-  ]
 }

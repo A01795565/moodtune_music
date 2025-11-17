@@ -30,9 +30,10 @@ class SpotifyClientCredentials(ClientCredentials):
         super().__init__(client_id=client_id, client_secret=client_secret, token_url=self.TOKEN_URL)
 
     def _fetch_token(self):
+        payload = {"grant_type": "client_credentials", "scope": "playlist-modify-public"}
         resp = requests.post(
             self.token_url,
-            data={"grant_type": "client_credentials"},
+            data=payload,
             auth=(self.client_id, self.client_secret),
             timeout=20,
         )
